@@ -1,0 +1,19 @@
+<script>
+	
+	var resid_sum = +prompt("Input credit amount");
+	var rate_year = +prompt("Input inerest rate (in %)");
+	var month = +prompt("Input credit term (in months)");
+	var perc_part = [];
+	
+	var rate_month = (rate_year / 100) / 12;
+	var payment = resid_sum * (rate_month + rate_month / (Math.pow((1 + rate_month),month) - 1));
+		
+	for (var i = 0; i < month; i++){
+		perc_part[i] = resid_sum * rate_month;
+		resid_sum = resid_sum - (payment - perc_part[i]);
+		console.log("Month #" + (i + 1) + ". Payment: " + payment.toFixed(2));
+		console.log("Percently part: " + perc_part[i].toFixed(2));
+		console.log("Decrease credit: " + (payment - perc_part[i]).toFixed(2));
+	} 
+		
+</script>

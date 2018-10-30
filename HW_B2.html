@@ -1,0 +1,23 @@
+<script>
+	
+	var arr = [];
+	var arr_right = [];
+	var arr_mistake = [];
+	var rating = 0;
+	
+	for (var i = 0; i < 12; i++){
+		var first = parseInt(Math.random()*100);
+		var second = parseInt(Math.random()*100);
+		arr.push([]);
+		arr[i][0] = first * second;
+		arr[i][1] = +prompt(`Input result multiplication ${first} by ${second}`);
+			if (arr[i][0] == arr[i][1]){
+				arr_right.push([`${first} * ${second} = ${arr[i][0]} Right`]); rating++
+			}else {
+			arr_mistake.push([`${first} * ${second} = ${arr[i][1]} Mistake!!!`])
+			}
+		}
+	console.log(`Your rating is ${rating}.`);
+	console.log(arr_right);
+	console.log(arr_mistake);
+</script>
