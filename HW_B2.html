@@ -6,8 +6,8 @@
 	var rating = 0;
 	
 	for (var i = 0; i < 12; i++){
-		var first = parseInt(Math.random()*100);
-		var second = parseInt(Math.random()*100);
+		var first = parseInt(Math.random()*89) + 10;
+		var second = parseInt(Math.random()*89) + 10;
 		arr.push([]);
 		arr[i][0] = first * second;
 		arr[i][1] = +prompt(`Input result multiplication ${first} by ${second}`);
