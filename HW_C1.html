@@ -1,0 +1,101 @@
+<script>
+
+	var units = new Map([
+		[0, ""],
+		[1, "одна"],
+		[2, "две"],
+		[3, "три"],
+		[4, "четыре"],
+		[5, "пять"],
+		[6, "шесть"],
+		[7, "семь"],
+		[8, "восемь"],
+		[9, "девять"]]);
+	var units10_19 = new Map([
+		[0, "десять"],
+		[1, "одиннадцать"],
+		[2, "двенадцать"],
+		[3, "тринадцать"],
+		[4, "четырнадцать"],
+		[5, "пятнадцать"],
+		[6, "шестнадцать"],
+		[7, "семнадцать"],
+		[8, "восемнадцать"],
+		[9, "девятнадцать"]]);
+	var decades = new Map([
+		[0, ""],
+		[2, "двадцать"],
+		[3, "тридцать"],
+		[4, "сорок"],
+		[5, "пятьдесят"],
+		[6, "шестьдесят"],
+		[7, "семьдесят"],
+		[8, "восемьдесят"],
+		[9, "девяносто"]]);
+	var hundreds = new Map([
+		[0, ""],
+		[1, "сто"],
+		[2, "двести"],
+		[3, "триста"],
+		[4, "четыреста"],
+		[5, "пятьсот"],
+		[6, "шестьсот"],
+		[7, "семьсот"],
+		[8, "восемьсот"],
+		[9, "девятьсот"]]);
+
+		function transf(arr, item){
+			return arr.get(item);
+		}
+		
+		function transf_all(arr, item){
+			if(typeof(item) != 'undefined'){
+			return transf(arr, parseInt(item));}
+		else{return "";}
+		}
+		
+		var number = prompt("Введите сумму от 1 до 999999 (в грн.)");
+		var number_old = +number;
+		number = number.split("");
+		var number_rev = number.reverse();
+		
+		var units_str = transf(units, parseInt(number_rev[0]));                    
+		
+		var hundreds_tho_str = transf_all(hundreds, number_rev[5]);
+		var units_tho_str = transf_all(units, number_rev[3]);
+		if(typeof(number_rev[4]) != 'undefined'){
+			if(number_rev[4] == 1){
+				var decades_tho_str = transf(units10_19, parseInt(number_rev[3]));      /** 10,11,12... **/
+				units_tho_str = "";}
+			else {var decades_tho_str = transf(decades, parseInt(number_rev[4]));}
+		}
+		else{var decades_tho_str = ""}; 
+		
+		var hundreds_str = transf_all(hundreds, number_rev[2]);
+		if(typeof(number_rev[1]) != 'undefined'){
+			if(number_rev[1] == 1){
+				var decades_str = transf(units10_19, parseInt(number_rev[0]));      /** 10,11,12... **/
+				units_str = "";}
+			else {var decades_str = transf(decades, parseInt(number_rev[1]));}
+		}
+		else{var decades_str = ""};
+		
+		if ((number_rev[0] == 2 && number_rev[1] != 1) ||
+			(number_rev[0] == 3 && number_rev[1] != 1) ||
+			(number_rev[0] == 4 && number_rev[1] != 1)){var grn = "гривны"}
+			else {var grn = "гривен"};
+		if (number_rev[0] == 1 && number_rev[1] != 1){var grn = "гривна"};
+		if(typeof(number_rev[3]) != 'undefined'){
+			if ((number_rev[3] == 2 && number_rev[4] != 1) ||
+				(number_rev[3] == 3 && number_rev[4] != 1) ||
+				(number_rev[3] == 4 && number_rev[4] != 1)){var tho = "тысячи"}
+				else {var tho = "тысяч"};
+			if (number_rev[3] == 1 && number_rev[4] != 1){var tho = "тысяча"}
+			}else{var tho = ""};
+		
+		var string = `${hundreds_tho_str} ${decades_tho_str} ${units_tho_str} ${tho} ${hundreds_str} ${decades_str} ${units_str} ${grn}`;
+		string = string.replace(/\s{2,}/g,' ');
+		
+	alert(`${number_old} грн. - ${string}`);	
+	
+</script>
