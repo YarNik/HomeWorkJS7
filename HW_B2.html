@@ -1,5 +1,12 @@
 <script>
 	
+	
+	function time(){
+	now = Date.now();
+	var diff = now - start;
+	return diff;
+	}
+	
 	var arr = [];
 	var arr_right = [];
 	var arr_mistake = [];
@@ -10,11 +17,17 @@
 		var second = parseInt(Math.random()*89) + 10;
 		arr.push([]);
 		arr[i][0] = first * second;
+		
+		var start = Date.now();
 		arr[i][1] = +prompt(`Input result multiplication ${first} by ${second}`);
-			if (arr[i][0] == arr[i][1]){
-				arr_right.push([`${first} * ${second} = ${arr[i][0]} Right`]); rating++
-			}else {
+		var time_all = time() / 1000;
+		
+			if (arr[i][0] == arr[i][1] && time_all < 20){
+				arr_right.push([`${first} * ${second} = ${arr[i][0]} Right.`]); rating++
+			}else if(arr[i][0] != arr[i][1]){
 			arr_mistake.push([`${first} * ${second} = ${arr[i][1]} Mistake!!!`])
+			}else if (arr[i][0] == arr[i][1] && time_all > 20){
+			arr_mistake.push([`${first} * ${second} = ${arr[i][0]} Right. But time is bigger than limit.(20sec)`])
 			}
 		}
 	console.log(`Your rating is ${rating}.`);
