@@ -1,0 +1,75 @@
+<script>
+	
+	function brick(){
+		return parseInt(Math.random()*5) + 1;
+	}
+	
+	function game(amount, stakes, number){
+		var brick_1 = brick();
+		var brick_2 = brick();
+		var sum = brick_1 + brick_2;
+		var stakes_str = stakes + " " + grivnu(stakes);
+				
+			if(number != sum){amount -= stakes;
+				amount_str = amount + " " + grivna(amount);
+				alert(`Вы поставили ${stakes_str} на ${number}, но выпало ${sum} (${brick_1} + ${brick_2}).
+				Вы проиграли ${stakes_str}. Теперь у Вас ${amount_str}.`);
+				return amount;
+			}else if(number == sum && brick_1 == brick_2){var stakes_2 = stakes * 2;
+				amount += stakes_2;
+				amount_str = amount + " " + grivna(amount);
+				var stakes_str_2 = stakes_2 + " " + grivnu(stakes_2);
+				alert(`Вы поставили ${stakes_str} на ${number}, и выпало ${sum} (${brick_1} + ${brick_2}) Дубль!
+				Вы выиграли ${stakes_str_2}. Теперь у Вас ${amount_str}.`);
+				return amount;
+			}else {amount += stakes;
+				amount_str = amount + " " + grivna(amount);
+				alert(`Вы поставили ${stakes_str} на ${number}, и выпало ${sum} (${brick_1} + ${brick_2}).
+				Вы выиграли ${stakes_str}. Теперь у Вас ${amount_str}.`);
+				return amount;
+			}
+	}
+	
+	function grivnu(sum){
+		var num = String(sum).split("").reverse();
+		if (num[0] > 1  && num[0] < 5 && num[1] != 1){var grn = "гривны"}
+			else{var grn = "гривен"};
+		if ((num[0] == "1" && num[1] != 1) || (num[0] == 1 && typeof(num[1]) == 'undefined')){var grn = "гривну"}
+		return grn;		
+	}
+	
+	function grivna(sum){
+		var num = String(sum).split("").reverse();
+		if (num[0] > 1  && num[0] < 5 && num[1] != 1){var grn = "гривны"}
+			else{var grn = "гривен"};
+		if ((num[0] == "1" && num[1] != 1) || (num[0] == 1 && typeof(num[1]) == 'undefined')){var grn = "гривна"}
+		return grn;		
+	}
+	
+	function raundov(sum){
+		var num = String(sum).split("").reverse();
+		if (num[0] > 1  && num[0] < 5 && num[1] != 1){var rau = "раунда"}
+			else{var rau = "раундов"};
+		if ((num[0] == "1" && num[1] != 1) || (num[0] == 1 && typeof(num[1]) == 'undefined')){var rau = "раунд"}
+		return rau;		
+	}
+	
+	
+	var amount = 1000;
+	var round = 0;
+	var amount_str = amount + " " + grivna(amount);
+	
+	while(amount > 0 && amount < 3000){
+		round ++;
+		var stake = parseInt(prompt(`Ваша ставка: (максимум ${amount_str}.)`));
+		if (stake < 0 || stake > amount) {alert(`Внимательней!!!`);continue;}
+		var number = +prompt(`Вы ставите на: (число от 2 до 12)`);
+		if (number < 2 || number > 12) {alert(`Внимательней!!!`);continue;}
+		amount = game(amount, stake, number);
+		if (amount == 0){alert(`Вы все проиграли.`)}
+		if (amount >= 3000){var ra = raundov(round);
+		alert(`Вы выиграли за ${round} ${ra}!!!`)}
+		
+	}
+
+</script>
