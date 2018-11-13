@@ -59,7 +59,7 @@
 	var round = 0;
 	var amount_str = amount + " " + grivna(amount);
 	
-	while(amount > 0 && amount < 3000){
+	while(amount > 0 && amount < 10000){
 		round ++;
 		var stake = parseInt(prompt(`Ваша ставка: (максимум ${amount_str}.)`));
 		if (stake < 0 || stake > amount) {alert(`Внимательней!!!`);continue;}
