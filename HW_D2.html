@@ -30,28 +30,24 @@
 			}
 	}
 	
+	function declension(number, num_1, num_2_4, num_5_9){
+		var num = String(number).split("").reverse();
+		if (num[0] > 1  && num[0] < 5 && num[1] != 1){var decl = num_2_4}
+			else{var decl = num_5_9};
+		if ((num[0] == "1" && num[1] != 1) || (num[0] == 1 && typeof(num[1]) == 'undefined')){var decl = num_1}
+		return decl;		
+	}
+	
 	function grivnu(sum){
-		var num = String(sum).split("").reverse();
-		if (num[0] > 1  && num[0] < 5 && num[1] != 1){var grn = "гривны"}
-			else{var grn = "гривен"};
-		if ((num[0] == "1" && num[1] != 1) || (num[0] == 1 && typeof(num[1]) == 'undefined')){var grn = "гривну"}
-		return grn;		
+		return declension(sum, "гривну", "гривны", "гривен");		
 	}
 	
 	function grivna(sum){
-		var num = String(sum).split("").reverse();
-		if (num[0] > 1  && num[0] < 5 && num[1] != 1){var grn = "гривны"}
-			else{var grn = "гривен"};
-		if ((num[0] == "1" && num[1] != 1) || (num[0] == 1 && typeof(num[1]) == 'undefined')){var grn = "гривна"}
-		return grn;		
+		return declension(sum, "гривна", "гривны", "гривен");		
 	}
 	
 	function raundov(sum){
-		var num = String(sum).split("").reverse();
-		if (num[0] > 1  && num[0] < 5 && num[1] != 1){var rau = "раунда"}
-			else{var rau = "раундов"};
-		if ((num[0] == "1" && num[1] != 1) || (num[0] == 1 && typeof(num[1]) == 'undefined')){var rau = "раунд"}
-		return rau;		
+		return declension(sum, "раунд", "раунда", "раундов");		
 	}
 	
 	
