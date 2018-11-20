@@ -1,0 +1,36 @@
+<script>
+
+	function code(inp){
+		var ob = {
+			inn: inp
+		}
+					
+		var num = String(ob.inn).split("");
+		num = num.filter(function(number){
+			if(!isNaN(parseInt(number))){return number}});
+		var contr_sum = num[0]*(-1) + num[1]*5 + num[2]*7 + num[3]*9 + num[4]*4 + num[5]*6 + num[6]*10 + num[7]*5 + num[8]*7 ;
+		
+		ob.inn = num.join("");
+		var contr_num = contr_sum % 11;
+		if (contr_num == 10){contr_num = 0;}
+		if (contr_num == num[9]){ob.correct = true;}
+			else{ob.correct = false; return ob}
+		
+		var _31dec1899 = new Date(1899, 11, 31);
+		var _5num = String(ob.inn).substring(0,5);
+		_31dec1899.setDate(_31dec1899.getDate() + parseInt(_5num));
+		var now = new Date();
+		ob.birthday = _31dec1899.getDate() + "." + ((_31dec1899.getMonth() + 1) > 10 ? (_31dec1899.getMonth() + 1) : ("0" + (_31dec1899.getMonth() + 1))) + "." + _31dec1899.getFullYear();
+		
+		ob.age = now.getFullYear() - _31dec1899.getFullYear();
+		if (now.getMonth < _31dec1899.getMonth){ob.age = ob.age - 1;}
+		if (now.getMonth == _31dec1899.getMonth && now.getDate < _31dec1899.getDate){ob.age = ob.age - 1;}
+		
+		if (num[8] % 2 != 0){ob.sex = "male";}
+			else{ob.sex = "female";}
+			
+		return ob;
+	}	
+		console.log(code(prompt("Введите ИНН:")));
+
+</script>

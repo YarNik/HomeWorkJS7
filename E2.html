@@ -1,0 +1,71 @@
+<script>
+
+	var Visa = ["Visa", [4]];
+	var Mastercard = ["Mastercard", [51,55],[222100,272099]];
+	var Maestro = ["Maestro", [50], [56,58], [639], [67]];
+	var UnionPay = ["UnionPay", [62]];
+	var Discover_Card = ["Discover Card", [6011], [64], [65]];
+	var Diners_Club_International = ["Diners Club International", [36], [300,305], [3095], [38,39]];
+	var JCB = ["JCB", [3528,3589]];
+	var MIR = ["MIR", [2200,2204]];
+	var PaySystems = [Visa, Mastercard, Maestro, UnionPay, Discover_Card, Diners_Club_International, JCB, MIR];
+	
+	function find(number){
+		var result = "non finded";
+		for (var i = 0; i < PaySystems.length; i++){
+				for (var j = 1; j < PaySystems[i].length; j++){
+					if (number == PaySystems[i][j][0]) {result = PaySystems[i][0]; break;}
+					if (number >= PaySystems[i][j][0] && number <= PaySystems[i][j][1]){
+						result = PaySystems[i][0]; break;}
+					}
+			}
+		return result;
+	}
+	
+	function bite(number){
+		var num_str = String(number).split("");
+		var num_bit = num_str[0];
+		var result = find(num_bit);
+		if (result == "non finded"){
+			for (var i = 1; i < 6; i++){
+				num_bit = num_bit + num_str[i];
+				result = find(num_bit);
+				if (result != "non finded") break;
+				}
+			}
+		return result;
+	}
+	
+	function luhn(number){
+		var num_str = String(number).split("");
+		if (num_str.length != 16){return false;}
+		var sum_even = 0;
+		var sum_odd = 0;
+		for (var i = 1; i < num_str.length; i += 2){
+			sum_even += parseInt(num_str[i]);
+		}
+		for (var i = 0; i < num_str.length; i += 2){
+			sum_odd += ((num_str[i]*2 > 9) ? (num_str[i]*2 - 9): num_str[i]*2);
+		}
+		var sum = sum_even + sum_odd;
+		if (sum %10 == 0){return true;}
+			else {return false;}
+	}
+	
+	function cleansing(string){
+		var numb = string.split("");
+		numb = numb.filter(function(number){
+			if(!isNaN(parseInt(number))){return number}});
+		numb = numb.join("");
+		return numb;		
+	}
+	
+	var ob = {};
+	ob.card = cleansing(prompt("Input card number:"));
+	ob.correct = luhn(ob.card);
+	ob.payment_system = (ob.correct && bite(ob.card) != "non finded") ? bite(ob.card) : "";
+	ob.accepted = (ob.correct && bite(ob.card) != "non finded") ? true : false;
+		
+	console.log(ob);
+
+</script>
