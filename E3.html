@@ -1,0 +1,75 @@
+<script>
+
+	var EU = new Map([
+		[43 ,"Austria"],
+		[32 ,"Belgium"],
+		[359 ,"Bulgaria"],
+		[385 ,"Croatia"],
+		[357 ,"Cyprus"],
+		[420 ,"Czech Republic"],
+		[45 ,"Denmark"],
+		[372 ,"Estonia"],
+		[358 ,"Finland"],
+		[33 ,"France"],
+		[49 ,"Germany"],
+		[30 ,"Greece"],
+		[36 ,"Hungary"],
+		[353 ,"Ireland"],
+		[39 ,"Italy"],
+		[371 ,"Latvia"],
+		[370 ,"Lithuania"],
+		[352 ,"Luxembourg"],
+		[356 ,"Malta"],
+		[31 ,"Netherland"],
+		[48 ,"Poland"],
+		[351 ,"Portugal"],
+		[40 ,"Romania"],
+		[421 ,"Slovakia"],
+		[386 ,"Slovenia"],
+		[34 ,"Spain"],
+		[46 ,"Sweden"],
+		[44 ,"United Kingdom"]]);
+
+	function cleansing(string){
+		var numb = string.split("");
+		numb = numb.filter(function(number){
+			if(!isNaN(parseInt(number))){return number}});
+		numb = parseInt(numb.join(""));
+		return numb;		
+	}
+
+	function valid(number){
+		var num_str = String(number).split("");
+		if (num_str.length >= 8 && num_str.length <= 15){return true;}
+			else {return false;}
+	}
+	
+	function inEU(number){
+		var num_str = String(number).split("");
+		var num_str_2 = parseInt(String(num_str[0]) + num_str[1]);
+		var num_str_3 = parseInt(String(num_str[0]) + String(num_str[1]) + num_str[2]);
+		if (EU.get(num_str_2) != undefined){var result = EU.get(num_str_2);}
+			else if (EU.get(num_str_3) != undefined){var result = EU.get(num_str_3);}
+				else {var result = "non found";}
+		return result;
+	}
+	
+	function phones(number){
+		var ob = {};
+		var num_clear = cleansing(number);
+		ob.phone = "+" + num_clear;
+		ob.correct = (valid(num_clear)) ? true : false;
+		ob.inEU = (inEU(num_clear) != "non found") ? true : false;
+		ob.country = (ob.inEU) ? inEU(num_clear) : "";
+		return ob;
+	}
+	
+	console.log(phones(prompt("Input phone:")));
+
+</script>
+
+
+
+
+ 		
+		
